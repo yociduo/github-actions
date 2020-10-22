@@ -42,7 +42,14 @@ jobs:
 
       - name: Test
         run: |
-          echo '${{ steps.file_changes.outputs.files}}',
-          echo '${{ steps.filter.outputs.folder1}}',
-          echo '${{ steps.filter.outputs.folder2}}'
+          echo '${{ steps.file_changes.outputs.files}}'
+          echo folder 1 = '${{ steps.filter.outputs.folder1}}'
+          echo folder 2 = '${{ steps.filter.outputs.folder2}}'
 
+      - name: Do job 1
+        if: steps.filter.outputs.folder1 == 'true'
+        run: echo job 1
+
+      - name: Do job 2
+        if: steps.filter.outputs.folder2 == 'true'
+        run: echo job 2
