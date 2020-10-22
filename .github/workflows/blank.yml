@@ -21,6 +21,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: tony84727/changed-file-filter@0.0.3
+        id: filter
+        with:
+          filters: |
+            folder1:
+              - 'folder1/**/*'
+            folder2:
+              - 'folder2/**/*'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -33,4 +41,8 @@ jobs:
           echo test, and deploy your project.
 
       - name: Test
-        run: echo '${{ steps.file_changes.outputs.files}}'
+        run: |
+          echo '${{ steps.file_changes.outputs.files}}',
+          echo '${{ steps.filter.outputs.folder1}}',
+          echo '${{ steps.filter.outputs.folder2}}'
+
