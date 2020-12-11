@@ -68,6 +68,11 @@ jobs:
       - name: Run manually triggered workflow
         run: echo "Hello ${{ github.event.inputs.env }}!"
 
+
+      - uses: nelonoel/branch-name@v1
+      # Use branch name for whatever purpose
+      - run: echo ${BRANCH_NAME}
+
       # Runs for linux
       # - name: Extract branch name
       #   run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -77,16 +82,14 @@ jobs:
       #   if: steps.extract_branch.outputs.branch == 'master'
       #   run: echo ${{ steps.extract_branch.outputs.branch }}
 
-      # Runs for windows
-      - name: Extract branch name
-        run: |
-          echo "::set-env name=tag::$(($env:GITHUB_REF -split '/')[-1] -replace ' ','')"
-          echo "${env:tag}"
-        id: extract_branch
+      # - name: SET CURRENT_BRANCH
+      #   run: |
+      #     $branchName = "${{github.ref}}".Split("/")["${{github.ref}}".Split("/").Length -1]
+      #     echo "::set-env name=CURRENT_BRANCH::$(echo $branchName)"
 
-      - name: Echo branch name
-        if: env:tag == 'master'
-        run: echo "${env:tag}"
+      # - name: Echo branch name
+      #   if: env:tag == 'master'
+      #   run: echo "${env:tag}"
 
 
       # Setup Node.js environment
