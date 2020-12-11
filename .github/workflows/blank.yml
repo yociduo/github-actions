@@ -70,8 +70,11 @@ jobs:
 
       # Runs
       - name: Extract branch name
-        if: (echo ${GITHUB_REF##*/}) != 'master'
-        run: echo ${GITHUB_REF##*/} == 'master'
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Echo branch name
+        run: echo ${{ steps.extract_branch.outputs.branch }}
 
       # Setup Node.js environment
       # - name: Use Node.js ${{ matrix.node-version }}
