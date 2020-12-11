@@ -70,8 +70,8 @@ jobs:
 
       # Runs
       - name: Extract branch name
-        if: ${GITHUB_REF##*/} != 'master'
-        run: echo ${GITHUB_REF##*/}
+        if: (echo ${GITHUB_REF##*/}) != 'master'
+        run: echo ${GITHUB_REF##*/} == 'master'
 
       # Setup Node.js environment
       # - name: Use Node.js ${{ matrix.node-version }}
