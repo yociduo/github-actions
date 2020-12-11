@@ -70,10 +70,7 @@ jobs:
 
       # Runs
       - name: Extract branch name
-        run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "${{ steps.extract_branch.outputs.branch }}"
-        id: extract_branch
+        run: echo ${{GITHUB_REF}}
 
       # Setup Node.js environment
       # - name: Use Node.js ${{ matrix.node-version }}
