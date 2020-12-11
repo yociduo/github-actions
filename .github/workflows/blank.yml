@@ -68,6 +68,13 @@ jobs:
       - name: Run manually triggered workflow
         run: echo "Hello ${{ github.event.inputs.env }}!"
 
+      # Runs
+      - name: Extract branch name
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "${{ steps.extract_branch.outputs.branch }}"
+        id: extract_branch
+
       # Setup Node.js environment
       # - name: Use Node.js ${{ matrix.node-version }}
       # - name: Setup Node.js environment
