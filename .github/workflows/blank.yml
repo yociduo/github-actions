@@ -70,7 +70,7 @@ jobs:
 
       # Runs
       - name: Extract branch name
-        run: echo ${GITHUB_REF##*/}
+        run: echo ${GITHUB_REF##*/} == 'master'
 
       # Setup Node.js environment
       # - name: Use Node.js ${{ matrix.node-version }}
