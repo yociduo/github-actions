@@ -74,6 +74,7 @@ jobs:
         id: extract_branch
 
       - name: Echo branch name
+        if: steps.extract_branch.outputs.branch == 'master'
         run: echo ${{ steps.extract_branch.outputs.branch }}
 
       # Setup Node.js environment
