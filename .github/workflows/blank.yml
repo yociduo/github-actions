@@ -82,8 +82,8 @@ jobs:
       # Runs for windows
       - name: Extract branch name
         run: |
-          $branchName = "${{github.ref}}".Split("/")["${{github.ref}}".Split("/").Length -1]
-          echo "::set-output name=CURRENT_BRANCH::$(echo $branchName)"
+          $branch = "${{github.ref}}".Split("/")["${{github.ref}}".Split("/").Length -1]
+          echo "::set-output name=branch::$(echo $branch)"
         id: extract_branch
 
       - name: Echo branch name
