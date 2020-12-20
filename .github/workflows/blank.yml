@@ -24,21 +24,12 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - uses: tony84727/changed-file-filter@0.0.3
-        id: filter
-        with:
-          filters: |
-            folder1:
-              - 'folder1/**/*'
-            folder2:
-              - 'folder2/**/*'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -49,20 +40,6 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-
-      - name: Test
-        run: |
-          echo '${{ steps.file_changes.outputs.files}}'
-          echo folder 1 = '${{ steps.filter.outputs.folder1}}'
-          echo folder 2 = '${{ steps.filter.outputs.folder2}}'
-
-      - name: Do job 1
-        if: steps.filter.outputs.folder1 == 'true'
-        run: echo job 1
-
-      - name: Do job 2
-        if: steps.filter.outputs.folder2 == 'true'
-        run: echo job 2
 
       # Runs manually triggered workflow
       - name: Run manually triggered workflow
@@ -88,67 +65,3 @@ jobs:
       - name: Echo branch name
         if: steps.extract_branch.outputs.branch == 'master'
         run: echo ${{ steps.extract_branch.outputs.branch }}
-
-      # Setup Node.js environment
-      # - name: Use Node.js ${{ matrix.node-version }}
-      # - name: Setup Node.js environment
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: 12.x
-      #     registry-url: https://registry.npmjs.org/
-
-      # - name: Hello world
-      #   run: npm run test
-      #   env:
-      #     FIRST_NAME: Mona
-      #     middle_name: The
-      #     Last_Name: Octocat
-
-      # - name: Hello world
-      #   run: echo Hello world $FIRST_NAME $middle_name $Last_Name!
-      #   env:
-      #     FIRST_NAME: Eden
-      #     Last_Name: Wang
-
-      # - name: Run UAT environment e2e test
-      #   if: github.event.inputs.env == 'uat'
-      #   run: |
-      #     touch .env
-      #     pwd
-      #     cat .env
-      #   env:
-      #     E2E_HOST: https://uat.nested.co.th
-      #     EMAIL: admin@nested.co.th
-      #     PASSWORD: ${{ secrets.UAT_PASSWORD }}
-
-      # - name: Run EN environment e2e test
-      #   if: github.event.inputs.env == 'en'
-      #   run: |
-      #     touch .env
-      #     pwd
-      #     cat .env
-      #   env:
-      #     E2E_HOST: https://en.nested.co.th
-      #     EMAIL: admin@ambrosia.com
-      #     PASSWORD: ${{ secrets.PROD_PASSWORD }}
-          
-      # - name: Run e2e test
-      #   run: |
-      #     pwd
-      #     cat .env
-      #     npm i
-      #     npm run webdriver-update -- --standalone false --gecko false
-      #     npm run e2e.ci
-
-      - name: Dispatch module
-        uses: mvasigh/dispatch-action@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: github-actions
-          owner: yociduo
-          event_type: test_push
-          message: |
-            {
-              "foo": "bar"
-            }
-

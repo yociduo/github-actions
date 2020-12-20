@@ -1,0 +1,69 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Node.js
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Setup Node.js environment
+      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://registry.npmjs.org/
+
+      - name: Hello world
+        run: npm run test
+        env:
+          FIRST_NAME: Mona
+          middle_name: The
+          Last_Name: Octocat
+
+      - name: Hello world
+        run: echo Hello world $FIRST_NAME $middle_name $Last_Name!
+        env:
+          FIRST_NAME: Eden
+          Last_Name: Wang
+
+      - name: Run UAT environment e2e test
+        if: github.event.inputs.env == 'uat'
+        run: |
+          touch .env
+          pwd
+          cat .env
+        env:
+          E2E_HOST: https://uat.nested.co.th
+          EMAIL: admin@nested.co.th
+          PASSWORD: ${{ secrets.UAT_PASSWORD }}
+
+      - name: Run EN environment e2e test
+        if: github.event.inputs.env == 'en'
+        run: |
+          touch .env
+          pwd
+          cat .env
+        env:
+          E2E_HOST: https://en.nested.co.th
+          EMAIL: admin@ambrosia.com
+          PASSWORD: ${{ secrets.PROD_PASSWORD }}
+          
+      - name: Run e2e test
+        run: |
+          pwd
+          cat .env
+          npm i
+          npm run webdriver-update -- --standalone false --gecko false
+          npm run e2e.ci
