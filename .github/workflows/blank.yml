@@ -147,4 +147,8 @@ jobs:
           repo: github-actions
           owner: yociduo
           event_type: test_push
+          message: |
+            {
+              "foo": "bar"
+            }
 
