@@ -13,6 +13,6 @@ jobs:
     - name: Invoke workflow without inputs
       uses: benc-uk/workflow-dispatch@v1
       with:
-        workflow: Message Echo 1
+        workflow: Message Echo 1222
         token: ${{ secrets.GITHUB_TOKEN }}
         inputs: '{"message": "blah blah"}'
