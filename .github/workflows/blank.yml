@@ -143,6 +143,6 @@ jobs:
       - name: List repository workflows
         run: |
           curl \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/Nested-Innovation/MomentumE2E/actions/workflows
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Nested-Innovation/MomentumE2E/actions/workflows
 
